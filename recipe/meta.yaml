@@ -6,20 +6,20 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: 4c4e823625c05d2ed30712aa9e6394a077b531c27058274c689fcfb417355a1b
 
 build:
   noarch: python
-  number: 0
+  number: 1
   script: {{ PYTHON }} -m pip install . --ignore-installed --no-cache-dir -vvv
 
 requirements:
   host:
-    - python >=3.6
+    - python {{ python_min }}
     - pip
   run:
-    - python >=3.6
+    - python >={{ python_min }}
     - compas >=1.14.1
     - compas_cloud >=0.3.0
     - compas_tna >=0.1.5
@@ -30,6 +30,7 @@ test:
     - compas_rv2
   requires:
     - pip
+    - python {{ python_min }}
   commands:
     - pip check
 
